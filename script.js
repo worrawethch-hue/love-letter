@@ -128,41 +128,55 @@ document.addEventListener("DOMContentLoaded", () => {
         revealScene.classList.add("is-active");
       }
 
-      let step = 0;
-      const advanceStep = () => {
-        revealLines.forEach((line) => line.classList.remove("reveal-line--active"));
-        const currentLine = revealLines[step];
-        if (currentLine) {
-          currentLine.classList.add("reveal-line--active");
+      const sequence = [
+        { type: "text", lineIndex: 0, duration: 3000 },
+        { type: "blank", duration: 1000 },
+        { type: "text", lineIndex: 1, duration: 5000 },
+        { type: "blank", duration: 1000 },
+        { type: "text", lineIndex: 2, duration: 4000 },
+        { type: "blank", duration: 1000 }
+      ];
+
+      let index = 0;
+
+      const runSequence = () => {
+        const step = sequence[index];
+        if (!step) {
+          scenes.forEach((scene) => scene.classList.remove("is-active"));
+          if (envelopeScene) {
+            envelopeScene.classList.add("is-active");
+          }
+          if (envelope) {
+            envelope.classList.add("is-visible");
+          }
+          window.setTimeout(() => {
+            if (envelope) {
+              envelope.classList.add("is-opening");
+            }
+          }, 1200);
+          window.setTimeout(() => {
+            scenes.forEach((scene) => scene.classList.remove("is-active"));
+            if (letterScene) {
+              letterScene.classList.add("is-active");
+            }
+          }, 2800);
+          return;
         }
 
-        if (step < revealLines.length - 1) {
-          step += 1;
-          window.setTimeout(advanceStep, 2200);
+        revealLines.forEach((line) => line.classList.remove("reveal-line--active"));
+
+        if (step.type === "text") {
+          const currentLine = revealLines[step.lineIndex];
+          if (currentLine) {
+            currentLine.classList.add("reveal-line--active");
+          }
         }
+
+        index += 1;
+        window.setTimeout(runSequence, step.duration);
       };
 
-      window.setTimeout(advanceStep, 1200);
-      window.setTimeout(() => {
-        scenes.forEach((scene) => scene.classList.remove("is-active"));
-        if (envelopeScene) {
-          envelopeScene.classList.add("is-active");
-        }
-        if (envelope) {
-          envelope.classList.add("is-visible");
-        }
-        window.setTimeout(() => {
-          if (envelope) {
-            envelope.classList.add("is-opening");
-          }
-        }, 1200);
-        window.setTimeout(() => {
-          scenes.forEach((scene) => scene.classList.remove("is-active"));
-          if (letterScene) {
-            letterScene.classList.add("is-active");
-          }
-        }, 2800);
-      }, 4200);
+      runSequence();
     };
 
     if (prefersReducedMotion) {
