@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const revealLines = Array.from(document.querySelectorAll(".reveal-line"));
   const envelopeScene = document.querySelector(".envelope-scene");
   const envelope = document.querySelector(".envelope");
+  const letterScene = document.querySelector(".letter-scene");
+  const letterContinueButton = document.querySelector(".letter-continue");
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   sliders.forEach((slider) => {
@@ -155,8 +157,9 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }, 1200);
         window.setTimeout(() => {
-          if (pageShell) {
-            pageShell.classList.add("is-blank");
+          scenes.forEach((scene) => scene.classList.remove("is-active"));
+          if (letterScene) {
+            letterScene.classList.add("is-active");
           }
         }, 2800);
       }, 4200);
@@ -182,4 +185,10 @@ document.addEventListener("DOMContentLoaded", () => {
       messageTimer = window.setInterval(rotateMessage, 1000);
     }
   });
+
+  if (letterContinueButton) {
+    letterContinueButton.addEventListener("click", (event) => {
+      event.preventDefault();
+    });
+  }
 });
