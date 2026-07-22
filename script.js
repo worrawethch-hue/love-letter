@@ -138,11 +138,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (step < revealLines.length - 1) {
           step += 1;
-          window.setTimeout(advanceStep, step === 1 ? 1400 : 1600);
+          window.setTimeout(advanceStep, 2200);
         }
       };
 
-      window.setTimeout(advanceStep, 1000);
+      window.setTimeout(advanceStep, 1200);
       window.setTimeout(() => {
         scenes.forEach((scene) => scene.classList.remove("is-active"));
         if (envelopeScene) {
