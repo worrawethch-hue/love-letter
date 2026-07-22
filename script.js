@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const letterContinueButton = document.querySelector(".letter-continue");
   const personalMessageScene = document.querySelector(".personal-message-scene");
   const personalContinueButton = document.querySelector(".personal-continue");
+  const endingQuestionScene = document.querySelector(".ending-question-scene");
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   sliders.forEach((slider) => {
@@ -215,6 +216,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (personalContinueButton) {
     personalContinueButton.addEventListener("click", (event) => {
       event.preventDefault();
+      scenes.forEach((scene) => scene.classList.remove("is-active"));
+      if (endingQuestionScene) {
+        endingQuestionScene.classList.add("is-active");
+      }
     });
   }
 });
