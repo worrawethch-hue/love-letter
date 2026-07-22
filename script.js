@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const progressValue = document.querySelector(".progress-value");
   const analysisMessage = document.querySelector(".analysis-message");
   const progressBar = document.querySelector(".progress-shell");
+  const revealScene = document.querySelector(".reveal-screen");
+  const revealLines = Array.from(document.querySelectorAll(".reveal-line"));
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   sliders.forEach((slider) => {
@@ -98,6 +100,10 @@ document.addEventListener("DOMContentLoaded", () => {
             pageShell.classList.add("is-blank");
           }
         }, 800);
+
+        window.setTimeout(() => {
+          showReveal();
+        }, 1800);
       }
     };
 
@@ -106,6 +112,33 @@ document.addEventListener("DOMContentLoaded", () => {
       if (analysisMessage) {
         analysisMessage.textContent = messages[messageIndex];
       }
+    };
+
+    const showReveal = () => {
+      if (pageShell) {
+        pageShell.classList.remove("is-blank");
+      }
+
+      scenes.forEach((scene) => scene.classList.remove("is-active"));
+      if (revealScene) {
+        revealScene.classList.add("is-active");
+      }
+
+      let step = 0;
+      const advanceStep = () => {
+        revealLines.forEach((line) => line.classList.remove("reveal-line--active"));
+        const currentLine = revealLines[step];
+        if (currentLine) {
+          currentLine.classList.add("reveal-line--active");
+        }
+
+        if (step < revealLines.length - 1) {
+          step += 1;
+          window.setTimeout(advanceStep, step === 1 ? 1400 : 1600);
+        }
+      };
+
+      window.setTimeout(advanceStep, 1000);
     };
 
     if (prefersReducedMotion) {
@@ -122,11 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (analysisMessage) {
         analysisMessage.textContent = messages[messages.length - 1];
       }
-      window.setTimeout(() => {
-        if (pageShell) {
-          pageShell.classList.add("is-blank");
-        }
-      }, 800);
+      window.setTimeout(showReveal, 800);
     } else {
       progressTimer = window.setInterval(updateProgress, 45);
       messageTimer = window.setInterval(rotateMessage, 1000);
