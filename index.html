@@ -127,13 +127,24 @@
           <p class="letter-label">Question</p>
           <h2 id="ending-question-title">[ Your final question will be written here ]</h2>
           <div class="ending-question-actions">
-            <button class="continue-btn ending-primary-btn" type="button">[ Primary Button Text ]</button>
-            <button class="continue-btn ending-secondary-btn" type="button">[ Secondary Button Text ]</button>
+            <button class="continue-btn ending-primary-btn" type="button" data-answer="YES">[ Primary Button Text ]</button>
+            <button class="continue-btn ending-secondary-btn" type="button" data-answer="NO">[ Secondary Button Text ]</button>
           </div>
+        </article>
+      </section>
+
+      <section class="scene result-scene" aria-labelledby="result-title">
+        <article class="result-card" id="result-card">
+          <p class="letter-label">Final Result</p>
+          <h2 id="result-title">Final Result</h2>
+          <p class="result-answer" id="result-answer">—</p>
+          <button class="continue-btn result-save-btn" type="button">Save Image</button>
+          <p class="result-instruction">Please send this image to the creator.</p>
         </article>
       </section>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

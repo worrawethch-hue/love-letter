@@ -17,6 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const personalMessageScene = document.querySelector(".personal-message-scene");
   const personalContinueButton = document.querySelector(".personal-continue");
   const endingQuestionScene = document.querySelector(".ending-question-scene");
+  const endingPrimaryButton = document.querySelector(".ending-primary-btn");
+  const endingSecondaryButton = document.querySelector(".ending-secondary-btn");
+  const resultScene = document.querySelector(".result-scene");
+  const resultAnswer = document.querySelector("#result-answer");
+  const resultSaveButton = document.querySelector(".result-save-btn");
+  const resultCard = document.querySelector("#result-card");
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   sliders.forEach((slider) => {
@@ -219,6 +225,82 @@ document.addEventListener("DOMContentLoaded", () => {
       scenes.forEach((scene) => scene.classList.remove("is-active"));
       if (endingQuestionScene) {
         endingQuestionScene.classList.add("is-active");
+      }
+    });
+  }
+
+  const showResultScene = (answer) => {
+    if (resultAnswer) {
+      resultAnswer.textContent = answer === "YES" ? "YES ❤️" : "NO";
+    }
+
+    scenes.forEach((scene) => scene.classList.remove("is-active"));
+    if (resultScene) {
+      resultScene.classList.add("is-active");
+    }
+
+    window.setTimeout(() => {
+      if (window.html2canvas && resultCard) {
+        resultSaveButton.disabled = true;
+        resultSaveButton.textContent = "Saving...";
+
+        window.html2canvas(resultCard, {
+          backgroundColor: "#fffdf9",
+          scale: 2,
+          useCORS: true
+        })
+          .then((canvas) => {
+            const link = document.createElement("a");
+            link.download = "love-language-result.png";
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+          })
+          .finally(() => {
+            if (resultSaveButton) {
+              resultSaveButton.disabled = false;
+              resultSaveButton.textContent = "Save Image";
+            }
+          });
+      }
+    }, 250);
+  };
+
+  if (endingPrimaryButton) {
+    endingPrimaryButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      showResultScene(endingPrimaryButton.dataset.answer || "YES");
+    });
+  }
+
+  if (endingSecondaryButton) {
+    endingSecondaryButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      showResultScene(endingSecondaryButton.dataset.answer || "NO");
+    });
+  }
+
+  if (resultSaveButton) {
+    resultSaveButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (window.html2canvas && resultCard) {
+        resultSaveButton.disabled = true;
+        resultSaveButton.textContent = "Saving...";
+
+        window.html2canvas(resultCard, {
+          backgroundColor: "#fffdf9",
+          scale: 2,
+          useCORS: true
+        })
+          .then((canvas) => {
+            const link = document.createElement("a");
+            link.download = "love-language-result.png";
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+          })
+          .finally(() => {
+            resultSaveButton.disabled = false;
+            resultSaveButton.textContent = "Save Image";
+          });
       }
     });
   }
