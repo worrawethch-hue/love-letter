@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const envelope = document.querySelector(".envelope");
   const letterScene = document.querySelector(".letter-scene");
   const letterContinueButton = document.querySelector(".letter-continue");
+  const personalMessageScene = document.querySelector(".personal-message-scene");
+  const personalContinueButton = document.querySelector(".personal-continue");
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   sliders.forEach((slider) => {
@@ -202,6 +204,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (letterContinueButton) {
     letterContinueButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      scenes.forEach((scene) => scene.classList.remove("is-active"));
+      if (personalMessageScene) {
+        personalMessageScene.classList.add("is-active");
+      }
+    });
+  }
+
+  if (personalContinueButton) {
+    personalContinueButton.addEventListener("click", (event) => {
       event.preventDefault();
     });
   }
