@@ -2,6 +2,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const sliders = Array.from(document.querySelectorAll('input[type="range"]'));
   const continueButton = document.querySelector(".continue-btn");
   const valueLabels = new Map();
+  const scenes = Array.from(document.querySelectorAll(".scene"));
+  const pageShell = document.querySelector(".page-shell");
+  const progressFill = document.querySelector(".progress-fill");
+  const progressValue = document.querySelector(".progress-value");
+  const analysisMessage = document.querySelector(".analysis-message");
+  const progressBar = document.querySelector(".progress-shell");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   sliders.forEach((slider) => {
     const labelId = slider.id;
@@ -50,5 +57,79 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     event.preventDefault();
+
+    scenes.forEach((scene) => scene.classList.remove("is-active"));
+    const analysisScene = document.querySelector(".analysis-card");
+    if (analysisScene) {
+      analysisScene.classList.add("is-active");
+    }
+
+    let progress = 0;
+    const messages = [
+      "Analyzing emotional preferences...",
+      "Comparing communication patterns...",
+      "Evaluating relationship priorities...",
+      "Calculating compatibility profile...",
+      "Generating personalized insights..."
+    ];
+
+    let messageIndex = 0;
+    let progressTimer = null;
+    let messageTimer = null;
+
+    const updateProgress = () => {
+      progress = Math.min(progress + 1, 100);
+      if (progressFill) {
+        progressFill.style.width = `${progress}%`;
+      }
+      if (progressValue) {
+        progressValue.textContent = `${progress}%`;
+      }
+      if (progressBar) {
+        progressBar.setAttribute("aria-valuenow", String(progress));
+      }
+
+      if (progress >= 100) {
+        clearInterval(progressTimer);
+        clearInterval(messageTimer);
+
+        window.setTimeout(() => {
+          if (pageShell) {
+            pageShell.classList.add("is-blank");
+          }
+        }, 800);
+      }
+    };
+
+    const rotateMessage = () => {
+      messageIndex = (messageIndex + 1) % messages.length;
+      if (analysisMessage) {
+        analysisMessage.textContent = messages[messageIndex];
+      }
+    };
+
+    if (prefersReducedMotion) {
+      progress = 100;
+      if (progressFill) {
+        progressFill.style.width = "100%";
+      }
+      if (progressValue) {
+        progressValue.textContent = "100%";
+      }
+      if (progressBar) {
+        progressBar.setAttribute("aria-valuenow", "100");
+      }
+      if (analysisMessage) {
+        analysisMessage.textContent = messages[messages.length - 1];
+      }
+      window.setTimeout(() => {
+        if (pageShell) {
+          pageShell.classList.add("is-blank");
+        }
+      }, 800);
+    } else {
+      progressTimer = window.setInterval(updateProgress, 45);
+      messageTimer = window.setInterval(rotateMessage, 1000);
+    }
   });
 });

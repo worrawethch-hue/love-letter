@@ -14,7 +14,7 @@
   </head>
   <body>
     <main class="page-shell">
-      <section class="assessment-card" aria-labelledby="assessment-title">
+      <section class="scene is-active assessment-card" aria-labelledby="assessment-title">
         <div class="intro-block">
           <p class="eyebrow">Personality Assessment</p>
           <h1 id="assessment-title">Love Language Quiz</h1>
@@ -64,6 +64,23 @@
 
           <button class="continue-btn" type="button" disabled>Continue</button>
         </form>
+      </section>
+
+      <section class="scene analysis-card" aria-labelledby="analysis-title" aria-live="polite">
+        <div class="analysis-content">
+          <p class="eyebrow">Processing Responses</p>
+          <h2 id="analysis-title">Analyzing Your Personality</h2>
+          <p class="subtitle">Please wait while we process your responses.</p>
+
+          <div class="progress-shell" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-fill"></div>
+          </div>
+
+          <div class="progress-meta">
+            <span class="progress-value" id="progress-value">0%</span>
+            <p class="analysis-message" id="analysis-message">Analyzing emotional preferences...</p>
+          </div>
+        </div>
       </section>
     </main>
 
