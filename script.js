@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const progressBar = document.querySelector(".progress-shell");
   const revealScene = document.querySelector(".reveal-screen");
   const revealLines = Array.from(document.querySelectorAll(".reveal-line"));
+  const envelopeScene = document.querySelector(".envelope-scene");
+  const envelope = document.querySelector(".envelope");
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   sliders.forEach((slider) => {
@@ -139,6 +141,25 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       window.setTimeout(advanceStep, 1000);
+      window.setTimeout(() => {
+        scenes.forEach((scene) => scene.classList.remove("is-active"));
+        if (envelopeScene) {
+          envelopeScene.classList.add("is-active");
+        }
+        if (envelope) {
+          envelope.classList.add("is-visible");
+        }
+        window.setTimeout(() => {
+          if (envelope) {
+            envelope.classList.add("is-opening");
+          }
+        }, 1200);
+        window.setTimeout(() => {
+          if (pageShell) {
+            pageShell.classList.add("is-blank");
+          }
+        }, 2800);
+      }, 4200);
     };
 
     if (prefersReducedMotion) {
