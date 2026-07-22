@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Language Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="assessment-card" aria-labelledby="assessment-title">
+        <p class="eyebrow">Personality Assessment</p>
+        <h1 id="assessment-title">Love Language Quiz</h1>
+        <p class="subtitle">A short personality assessment. This takes around one minute.</p>
+
+        <form class="quiz-form" novalidate>
+          <div class="question-card">
+            <div class="question-header">
+              <label class="question-label" for="affirmation">Words of Affirmation</label>
+              <span class="value-pill" id="value-affirmation">50%</span>
+            </div>
+            <input type="range" id="affirmation" name="affirmation" min="0" max="100" value="50" />
+          </div>
+
+          <div class="question-card">
+            <div class="question-header">
+              <label class="question-label" for="gifts">Receiving Gifts</label>
+              <span class="value-pill" id="value-gifts">50%</span>
+            </div>
+            <input type="range" id="gifts" name="gifts" min="0" max="100" value="50" />
+          </div>
+
+          <div class="question-card">
+            <div class="question-header">
+              <label class="question-label" for="service">Acts of Service</label>
+              <span class="value-pill" id="value-service">50%</span>
+            </div>
+            <input type="range" id="service" name="service" min="0" max="100" value="50" />
+          </div>
+
+          <div class="question-card">
+            <div class="question-header">
+              <label class="question-label" for="time">Quality Time</label>
+              <span class="value-pill" id="value-time">50%</span>
+            </div>
+            <input type="range" id="time" name="time" min="0" max="100" value="50" />
+          </div>
+
+          <div class="question-card">
+            <div class="question-header">
+              <label class="question-label" for="touch">Physical Touch</label>
+              <span class="value-pill" id="value-touch">50%</span>
+            </div>
+            <input type="range" id="touch" name="touch" min="0" max="100" value="50" />
+          </div>
+
+          <button class="continue-btn" type="button" disabled>Continue</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
