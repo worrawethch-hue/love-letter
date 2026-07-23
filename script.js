@@ -306,12 +306,38 @@ document.addEventListener("DOMContentLoaded", () => {
           scale: 2,
           useCORS: true
         })
-          .then((canvas) => {
-            const link = document.createElement("a");
-            link.download = "love-language-result.png";
-            link.href = canvas.toDataURL("image/png");
-            link.click();
-          })
+          .then(async (canvas) => {
+            const fileName = "love-language-result.png";
+
+            // iPhone / Android ที่รองรับ Web Share
+            if (navigator.share && navigator.canShare) {
+              try {
+                const blob = await new Promise((resolve) =>
+                  canvas.toBlob(resolve, "image/png")
+               );
+
+               const file = new File([blob], fileName, {
+                 type: "image/png",
+              });
+
+              if (navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                  files: [file],
+                  title: "Love Language Result",
+                });
+                return;
+              }
+            } catch (err) {
+              console.log(err);
+            }
+          }
+
+          // Desktop
+          const link = document.createElement("a");
+          link.download = fileName;
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+        })
           .finally(() => {
             resultCard.classList.remove("is-capturing");
             if (existingMessageDisplay) {
