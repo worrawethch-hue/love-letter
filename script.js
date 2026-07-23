@@ -257,7 +257,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const showResultScene = (answer) => {
     if (resultAnswer) {
-      resultAnswer.textContent = answer === "YES" ? "YES ❤️" : "NO";
+      const normalizedAnswer = answer === "YES" || answer === "ชอบเหมือนกัน" ? "ชอบเหมือนกัน ❤️" : "ไม่ได้ชอบ";
+      resultAnswer.textContent = normalizedAnswer;
     }
 
     scenes.forEach((scene) => scene.classList.remove("is-active"));
