@@ -37,13 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
     slider.style.setProperty("--value", `${slider.value}%`);
   });
 
-  let touchedCount = 0;
-
-  const updateButtonState = () => {
-    const enabled = touchedCount === sliders.length;
-    continueButton.disabled = !enabled;
-  };
-
   sliders.forEach((slider) => {
     slider.addEventListener("input", () => {
       const value = slider.value;
@@ -53,24 +46,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (valueLabel) {
         valueLabel.textContent = `${value}%`;
       }
-
-      if (!slider.dataset.touched) {
-        slider.dataset.touched = "true";
-        touchedCount += 1;
-      }
-
-      updateButtonState();
     });
   });
 
-  updateButtonState();
+  if (continueButton) {
+    continueButton.disabled = false;
+  }
 
   continueButton.addEventListener("click", (event) => {
-    if (continueButton.disabled) {
-      event.preventDefault();
-      return;
-    }
-
     event.preventDefault();
 
     scenes.forEach((scene) => scene.classList.remove("is-active"));

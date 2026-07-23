@@ -68,14 +68,15 @@ body {
 
 .assessment-card,
 .analysis-card {
+  width: min(100%, 860px);
   background: rgba(255, 253, 249, 0.96);
   border: 1px solid rgba(231, 222, 213, 0.9);
   border-radius: 30px;
   box-shadow: 0 24px 60px rgba(46, 46, 46, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  padding: clamp(24px, 5vw, 56px);
+  padding: clamp(28px, 4.5vw, 56px);
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 24px;
   animation: cardRise 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
@@ -122,14 +123,16 @@ h1 {
 .quiz-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
+  width: 100%;
 }
 
 .question-card {
+  width: 100%;
   background: linear-gradient(180deg, #fffdfa 0%, #fffcf7 100%);
   border: 1px solid rgba(231, 222, 213, 0.8);
-  border-radius: 20px;
-  padding: 18px 18px 20px;
+  border-radius: 22px;
+  padding: 20px 22px 22px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.75);
   transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
   animation: cardRise 620ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
@@ -251,8 +254,8 @@ input[type="range"]:focus-visible::-moz-range-thumb {
   align-self: flex-start;
   border: 1px solid rgba(200, 155, 143, 0.18);
   border-radius: 16px;
-  padding: 13px 22px;
-  min-height: 48px;
+  padding: 14px 24px;
+  min-height: 50px;
   font: inherit;
   font-size: 1rem;
   font-weight: 500;
@@ -391,8 +394,8 @@ input[type="range"]:focus-visible::-moz-range-thumb {
   position: absolute;
   left: 0;
   right: 0;
-  background: linear-gradient(180deg, #f8efe8 0%, #f2e5d9 100%);
-  border: 1px solid rgba(214, 198, 184, 0.9);
+  background: linear-gradient(180deg, #f8dfe4 0%, #f9e5ea 100%);
+  border: 1px solid rgba(230, 192, 201, 0.95);
   box-shadow: 0 18px 38px rgba(70, 54, 41, 0.12);
 }
 
