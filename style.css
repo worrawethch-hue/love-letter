@@ -94,7 +94,9 @@ body {
 
 .assessment-card .continue-btn {
   margin-top: 2px;
-  align-self: stretch;
+  align-self: flex-end;
+  margin-left: auto;
+  width: auto;
 }
 
 .analysis-content {
@@ -466,6 +468,14 @@ input[type="range"]:focus-visible::-moz-range-thumb {
   max-width: 38rem;
 }
 
+.letter-phase {
+  display: none;
+}
+
+.letter-phase.is-visible {
+  display: block;
+}
+
 .letter-continue {
   margin-top: 8px;
   align-self: flex-start;
@@ -491,12 +501,25 @@ input[type="range"]:focus-visible::-moz-range-thumb {
   animation: cardRise 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
-.personal-message-card h2 {
+.personal-message-card {
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  text-align: center;
+}
+
+.personal-message-text {
   margin: 0;
   font-family: "Cormorant Garamond", serif;
   font-weight: 500;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  line-height: 1.3;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.personal-message-card .continue-btn {
+  margin-top: 8px;
+  align-self: center;
 }
 
 .ending-question-scene {

@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultSaveButton = document.querySelector(".result-save-btn");
   const resultCard = document.querySelector("#result-card");
   const resultMessageInput = document.querySelector("#result-message-input");
-  const personalMessagePhases = Array.from(document.querySelectorAll(".personal-message-phase"));
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   sliders.forEach((slider) => {
@@ -151,6 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
               if (letterScene) {
                 letterScene.classList.add("is-active");
               }
+              startLetterPhaseSequence();
             }, 2800);
             return;
           }
@@ -213,44 +213,47 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (personalMessagePhases.length) {
-    const personalMessageCard = document.querySelector(".personal-message-card");
-    if (personalMessageCard) {
-      personalMessagePhases.forEach((phase) => {
-        phase.classList.remove("is-visible");
-      });
+  const startLetterPhaseSequence = () => {
+    const letterCard = document.querySelector(".letter-card");
+    if (!letterCard) {
+      return;
+    }
 
-      const continueButtonInCard = personalMessageCard.querySelector(".personal-continue");
-      if (continueButtonInCard) {
-        continueButtonInCard.style.display = "none";
+    const phases = Array.from(letterCard.querySelectorAll(".letter-phase"));
+    const continueButtonInCard = letterCard.querySelector(".letter-continue");
+
+    if (!phases.length || !continueButtonInCard) {
+      return;
+    }
+
+    phases.forEach((phase) => {
+      phase.classList.remove("is-visible");
+    });
+    continueButtonInCard.style.display = "none";
+
+    let phaseIndex = 0;
+
+    const showPhase = () => {
+      if (phases[phaseIndex]) {
+        phases[phaseIndex].classList.add("is-visible");
       }
 
-      let phaseIndex = 0;
-      const showPhase = () => {
-        personalMessagePhases.forEach((phase) => {
-          phase.classList.remove("is-visible");
-        });
-
-        if (phaseIndex < personalMessagePhases.length) {
-          personalMessagePhases[phaseIndex].classList.add("is-visible");
-          if (phaseIndex < personalMessagePhases.length - 1) {
-            window.setTimeout(() => {
-              phaseIndex += 1;
-              showPhase();
-            }, 2000);
-          } else {
-            window.setTimeout(() => {
-              if (continueButtonInCard) {
-                continueButtonInCard.style.display = "inline-flex";
-              }
-            }, 2000);
+      if (phaseIndex < phases.length - 1) {
+        window.setTimeout(() => {
+          phaseIndex += 1;
+          showPhase();
+        }, 2000);
+      } else {
+        window.setTimeout(() => {
+          if (continueButtonInCard) {
+            continueButtonInCard.style.display = "inline-flex";
           }
-        }
-      };
+        }, 2000);
+      }
+    };
 
-      showPhase();
-    }
-  }
+    showPhase();
+  };
 
   const showResultScene = (answer) => {
     if (resultAnswer) {
