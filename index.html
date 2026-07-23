@@ -116,8 +116,10 @@
       <section class="scene personal-message-scene" aria-labelledby="personal-message-title">
         <article class="personal-message-card">
           <p class="letter-label">Personal Message</p>
-          <h2 id="personal-message-title">[ Your personal message will be written here ]</h2>
-          <p class="letter-body">&lt;!-- USER WRITES HERE --&gt;</p>
+          <h2 id="personal-message-title">ข้อความจากเรา</h2>
+          <p class="letter-body personal-message-phase personal-message-phase-1" aria-live="polite">ตอนเจอเธอช่วงแรก ดูเป็นคนเงียบๆ เลยไม่ค่อยกล้าคุยด้วย แต่ว่าก็อยากทำความรู้จัก</p>
+          <p class="letter-body personal-message-phase personal-message-phase-2" aria-live="polite">ที่เราทักไปคุยด้วยทุกวันเธอน่าจะพอรู้เหตุผลอยู่แล้ว มันก็ผ่านมาประมาณหนึ่งเดือนกว่าแล้วมั้ยนะตั้งแต่เริ่มคุยกัน คุยกับเธอแล้วรู้สึกสบายใจ ค้นพบว่าจริงๆแล้วเธอก็เป็นคนเฮฮาเหมือนกันนะเนี่ยย</p>
+          <p class="letter-body personal-message-phase personal-message-phase-3" aria-live="polite">ก็เลยอยากบอกเธอว่า...</p>
           <button class="continue-btn personal-continue" type="button">Continue</button>
         </article>
       </section>
@@ -125,10 +127,10 @@
       <section class="scene ending-question-scene" aria-labelledby="ending-question-title">
         <article class="ending-question-card">
           <p class="letter-label">Question</p>
-          <h2 id="ending-question-title">[ Your final question will be written here ]</h2>
+          <h2 id="ending-question-title">ชอบเธอนะ ❤️</h2>
           <div class="ending-question-actions">
-            <button class="continue-btn ending-primary-btn" type="button" data-answer="YES">[ Primary Button Text ]</button>
-            <button class="continue-btn ending-secondary-btn" type="button" data-answer="NO">[ Secondary Button Text ]</button>
+            <button class="continue-btn ending-primary-btn" type="button" data-answer="YES">ชอบเหมือนกัน</button>
+            <button class="continue-btn ending-secondary-btn" type="button" data-answer="NO">ไม่ได้ชอบ</button>
           </div>
         </article>
       </section>
@@ -138,6 +140,10 @@
           <p class="letter-label">Final Result</p>
           <h2 id="result-title">Final Result</h2>
           <p class="result-answer" id="result-answer" aria-live="polite">—</p>
+          <div class="result-message-block">
+            <h3>มีอะไรอยากจะบอกเรามั้ยย</h3>
+            <textarea class="result-message-input" id="result-message-input" rows="5" placeholder="พิมพ์ข้อความที่นี่..."></textarea>
+          </div>
           <button class="continue-btn result-save-btn" type="button">Save Image</button>
           <p class="result-instruction">Please send this to creator (Worraweth)</p>
         </article>

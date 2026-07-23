@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultAnswer = document.querySelector("#result-answer");
   const resultSaveButton = document.querySelector(".result-save-btn");
   const resultCard = document.querySelector("#result-card");
+  const resultMessageInput = document.querySelector("#result-message-input");
+  const personalMessagePhases = Array.from(document.querySelectorAll(".personal-message-phase"));
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   sliders.forEach((slider) => {
@@ -211,6 +213,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  if (personalMessagePhases.length) {
+    const personalMessageCard = document.querySelector(".personal-message-card");
+    if (personalMessageCard) {
+      personalMessagePhases.forEach((phase, index) => {
+        phase.classList.remove("is-visible");
+      });
+
+      let phaseIndex = 0;
+      const showNextPhase = () => {
+        if (phaseIndex > 0) {
+          personalMessagePhases[phaseIndex - 1].classList.remove("is-visible");
+        }
+        if (phaseIndex < personalMessagePhases.length) {
+          personalMessagePhases[phaseIndex].classList.add("is-visible");
+          phaseIndex += 1;
+          if (phaseIndex <= personalMessagePhases.length) {
+            window.setTimeout(showNextPhase, 2000);
+          }
+        }
+      };
+
+      const showPersonalMessage = () => {
+        const continueButtonInCard = personalMessageCard.querySelector(".personal-continue");
+        if (continueButtonInCard) {
+          continueButtonInCard.style.display = "none";
+        }
+        showNextPhase();
+        window.setTimeout(() => {
+          if (continueButtonInCard) {
+            continueButtonInCard.style.display = "inline-flex";
+          }
+        }, 6000);
+      };
+
+      showPersonalMessage();
+    }
+  }
+
   const showResultScene = (answer) => {
     if (resultAnswer) {
       resultAnswer.textContent = answer === "YES" ? "YES ❤️" : "NO";
@@ -240,6 +280,19 @@ document.addEventListener("DOMContentLoaded", () => {
     resultSaveButton.addEventListener("click", (event) => {
       event.preventDefault();
       if (window.html2canvas && resultCard) {
+        const messageText = resultMessageInput ? resultMessageInput.value.trim() : "";
+        const messageDisplay = document.createElement("p");
+        messageDisplay.className = "result-message-preview";
+        messageDisplay.textContent = messageText || "";
+
+        const existingMessageDisplay = resultCard.querySelector(".result-message-preview");
+        if (existingMessageDisplay) {
+          existingMessageDisplay.remove();
+        }
+
+        resultCard.appendChild(messageDisplay);
+
+        resultCard.classList.add("is-capturing");
         resultSaveButton.disabled = true;
         resultSaveButton.textContent = "Saving...";
 
@@ -255,6 +308,13 @@ document.addEventListener("DOMContentLoaded", () => {
             link.click();
           })
           .finally(() => {
+            resultCard.classList.remove("is-capturing");
+            if (existingMessageDisplay) {
+              existingMessageDisplay.remove();
+            }
+            if (messageDisplay.parentNode) {
+              messageDisplay.remove();
+            }
             resultSaveButton.disabled = false;
             resultSaveButton.textContent = "Save Image";
           });
