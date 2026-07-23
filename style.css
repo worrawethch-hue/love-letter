@@ -335,41 +335,6 @@ input[type="range"]:focus-visible::-moz-range-thumb {
   line-height: 1.7;
 }
 
-.reveal-screen {
-  padding: 24px;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(180deg, #f8efe8 0%, #f5e7dd 100%);
-}
-
-.reveal-content {
-  width: min(100%, 36rem);
-  min-height: 240px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-}
-
-.reveal-line {
-  position: absolute;
-  margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(1.7rem, 3vw, 2.4rem);
-  line-height: 1.4;
-  color: var(--text);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 700ms ease, transform 700ms ease;
-  max-width: 32rem;
-}
-
-.reveal-line--active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .envelope-scene {
   padding: 24px;
   background: linear-gradient(180deg, #f7efe8 0%, #f2e5db 100%);

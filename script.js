@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const sliders = Array.from(document.querySelectorAll('input[type="range"]'));
-  const continueButton = document.querySelector(".continue-btn");
+  const continueButton = document.querySelector(".assessment-card .continue-btn");
   const valueLabels = new Map();
   const scenes = Array.from(document.querySelectorAll(".scene"));
   const pageShell = document.querySelector(".page-shell");
@@ -51,146 +51,145 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (continueButton) {
     continueButton.disabled = false;
-  }
-
-  continueButton.addEventListener("click", (event) => {
-    event.preventDefault();
-
-    scenes.forEach((scene) => scene.classList.remove("is-active"));
-    const analysisScene = document.querySelector(".analysis-card");
-    if (analysisScene) {
-      analysisScene.classList.add("is-active");
-    }
-
-    let progress = 0;
-    const messages = [
-      "Analyzing emotional preferences...",
-      "Comparing communication patterns...",
-      "Evaluating relationship priorities...",
-      "Calculating compatibility profile...",
-      "Generating personalized insights..."
-    ];
-
-    let messageIndex = 0;
-    let progressTimer = null;
-    let messageTimer = null;
-
-    const updateProgress = () => {
-      progress = Math.min(progress + 1, 100);
-      if (progressFill) {
-        progressFill.style.width = `${progress}%`;
-      }
-      if (progressValue) {
-        progressValue.textContent = `${progress}%`;
-      }
-      if (progressBar) {
-        progressBar.setAttribute("aria-valuenow", String(progress));
-      }
-
-      if (progress >= 100) {
-        clearInterval(progressTimer);
-        clearInterval(messageTimer);
-
-        window.setTimeout(() => {
-          if (pageShell) {
-            pageShell.classList.add("is-blank");
-          }
-        }, 800);
-
-        window.setTimeout(() => {
-          showReveal();
-        }, 1800);
-      }
-    };
-
-    const rotateMessage = () => {
-      messageIndex = (messageIndex + 1) % messages.length;
-      if (analysisMessage) {
-        analysisMessage.textContent = messages[messageIndex];
-      }
-    };
-
-    const showReveal = () => {
-      if (pageShell) {
-        pageShell.classList.remove("is-blank");
-      }
+    continueButton.addEventListener("click", (event) => {
+      event.preventDefault();
 
       scenes.forEach((scene) => scene.classList.remove("is-active"));
-      if (revealScene) {
-        revealScene.classList.add("is-active");
+      const analysisScene = document.querySelector(".analysis-card");
+      if (analysisScene) {
+        analysisScene.classList.add("is-active");
       }
 
-      const sequence = [
-        { type: "text", lineIndex: 0, duration: 3000 },
-        { type: "blank", duration: 1000 },
-        { type: "text", lineIndex: 1, duration: 5000 },
-        { type: "blank", duration: 1000 },
-        { type: "text", lineIndex: 2, duration: 4000 },
-        { type: "blank", duration: 1000 }
+      let progress = 0;
+      const messages = [
+        "Analyzing emotional preferences...",
+        "Comparing communication patterns...",
+        "Evaluating relationship priorities...",
+        "Calculating compatibility profile...",
+        "Generating personalized insights..."
       ];
 
-      let index = 0;
+      let messageIndex = 0;
+      let progressTimer = null;
+      let messageTimer = null;
 
-      const runSequence = () => {
-        const step = sequence[index];
-        if (!step) {
-          scenes.forEach((scene) => scene.classList.remove("is-active"));
-          if (envelopeScene) {
-            envelopeScene.classList.add("is-active");
-          }
-          if (envelope) {
-            envelope.classList.add("is-visible");
-          }
-          window.setTimeout(() => {
-            if (envelope) {
-              envelope.classList.add("is-opening");
-            }
-          }, 1200);
-          window.setTimeout(() => {
-            scenes.forEach((scene) => scene.classList.remove("is-active"));
-            if (letterScene) {
-              letterScene.classList.add("is-active");
-            }
-          }, 2800);
-          return;
+      const updateProgress = () => {
+        progress = Math.min(progress + 1, 100);
+        if (progressFill) {
+          progressFill.style.width = `${progress}%`;
+        }
+        if (progressValue) {
+          progressValue.textContent = `${progress}%`;
+        }
+        if (progressBar) {
+          progressBar.setAttribute("aria-valuenow", String(progress));
         }
 
-        revealLines.forEach((line) => line.classList.remove("reveal-line--active"));
+        if (progress >= 100) {
+          clearInterval(progressTimer);
+          clearInterval(messageTimer);
 
-        if (step.type === "text") {
-          const currentLine = revealLines[step.lineIndex];
-          if (currentLine) {
-            currentLine.classList.add("reveal-line--active");
-          }
+          window.setTimeout(() => {
+            if (pageShell) {
+              pageShell.classList.add("is-blank");
+            }
+          }, 800);
+
+          window.setTimeout(() => {
+            showReveal();
+          }, 1800);
         }
-
-        index += 1;
-        window.setTimeout(runSequence, step.duration);
       };
 
-      runSequence();
-    };
+      const rotateMessage = () => {
+        messageIndex = (messageIndex + 1) % messages.length;
+        if (analysisMessage) {
+          analysisMessage.textContent = messages[messageIndex];
+        }
+      };
 
-    if (prefersReducedMotion) {
-      progress = 100;
-      if (progressFill) {
-        progressFill.style.width = "100%";
+      const showReveal = () => {
+        if (pageShell) {
+          pageShell.classList.remove("is-blank");
+        }
+
+        scenes.forEach((scene) => scene.classList.remove("is-active"));
+        if (revealScene) {
+          revealScene.classList.add("is-active");
+        }
+
+        const sequence = [
+          { type: "text", lineIndex: 0, duration: 3000 },
+          { type: "blank", duration: 1000 },
+          { type: "text", lineIndex: 1, duration: 5000 },
+          { type: "blank", duration: 1000 },
+          { type: "text", lineIndex: 2, duration: 4000 },
+          { type: "blank", duration: 1000 }
+        ];
+
+        let index = 0;
+
+        const runSequence = () => {
+          const step = sequence[index];
+          if (!step) {
+            scenes.forEach((scene) => scene.classList.remove("is-active"));
+            if (envelopeScene) {
+              envelopeScene.classList.add("is-active");
+            }
+            if (envelope) {
+              envelope.classList.add("is-visible");
+            }
+            window.setTimeout(() => {
+              if (envelope) {
+                envelope.classList.add("is-opening");
+              }
+            }, 1200);
+            window.setTimeout(() => {
+              scenes.forEach((scene) => scene.classList.remove("is-active"));
+              if (letterScene) {
+                letterScene.classList.add("is-active");
+              }
+            }, 2800);
+            return;
+          }
+
+          revealLines.forEach((line) => line.classList.remove("reveal-line--active"));
+
+          if (step.type === "text") {
+            const currentLine = revealLines[step.lineIndex];
+            if (currentLine) {
+              currentLine.classList.add("reveal-line--active");
+            }
+          }
+
+          index += 1;
+          window.setTimeout(runSequence, step.duration);
+        };
+
+        runSequence();
+      };
+
+      if (prefersReducedMotion) {
+        progress = 100;
+        if (progressFill) {
+          progressFill.style.width = "100%";
+        }
+        if (progressValue) {
+          progressValue.textContent = "100%";
+        }
+        if (progressBar) {
+          progressBar.setAttribute("aria-valuenow", "100");
+        }
+        if (analysisMessage) {
+          analysisMessage.textContent = messages[messages.length - 1];
+        }
+        window.setTimeout(showReveal, 800);
+      } else {
+        progressTimer = window.setInterval(updateProgress, 45);
+        messageTimer = window.setInterval(rotateMessage, 1000);
       }
-      if (progressValue) {
-        progressValue.textContent = "100%";
-      }
-      if (progressBar) {
-        progressBar.setAttribute("aria-valuenow", "100");
-      }
-      if (analysisMessage) {
-        analysisMessage.textContent = messages[messages.length - 1];
-      }
-      window.setTimeout(showReveal, 800);
-    } else {
-      progressTimer = window.setInterval(updateProgress, 45);
-      messageTimer = window.setInterval(rotateMessage, 1000);
-    }
-  });
+    });
+  }
 
   if (letterContinueButton) {
     letterContinueButton.addEventListener("click", (event) => {
