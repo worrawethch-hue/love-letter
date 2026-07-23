@@ -216,38 +216,39 @@ document.addEventListener("DOMContentLoaded", () => {
   if (personalMessagePhases.length) {
     const personalMessageCard = document.querySelector(".personal-message-card");
     if (personalMessageCard) {
-      personalMessagePhases.forEach((phase, index) => {
+      personalMessagePhases.forEach((phase) => {
         phase.classList.remove("is-visible");
       });
 
+      const continueButtonInCard = personalMessageCard.querySelector(".personal-continue");
+      if (continueButtonInCard) {
+        continueButtonInCard.style.display = "none";
+      }
+
       let phaseIndex = 0;
-      const showNextPhase = () => {
-        if (phaseIndex > 0) {
-          personalMessagePhases[phaseIndex - 1].classList.remove("is-visible");
-        }
+      const showPhase = () => {
+        personalMessagePhases.forEach((phase) => {
+          phase.classList.remove("is-visible");
+        });
+
         if (phaseIndex < personalMessagePhases.length) {
           personalMessagePhases[phaseIndex].classList.add("is-visible");
-          phaseIndex += 1;
-          if (phaseIndex <= personalMessagePhases.length) {
-            window.setTimeout(showNextPhase, 2000);
+          if (phaseIndex < personalMessagePhases.length - 1) {
+            window.setTimeout(() => {
+              phaseIndex += 1;
+              showPhase();
+            }, 2000);
+          } else {
+            window.setTimeout(() => {
+              if (continueButtonInCard) {
+                continueButtonInCard.style.display = "inline-flex";
+              }
+            }, 2000);
           }
         }
       };
 
-      const showPersonalMessage = () => {
-        const continueButtonInCard = personalMessageCard.querySelector(".personal-continue");
-        if (continueButtonInCard) {
-          continueButtonInCard.style.display = "none";
-        }
-        showNextPhase();
-        window.setTimeout(() => {
-          if (continueButtonInCard) {
-            continueButtonInCard.style.display = "inline-flex";
-          }
-        }, 6000);
-      };
-
-      showPersonalMessage();
+      showPhase();
     }
   }
 
