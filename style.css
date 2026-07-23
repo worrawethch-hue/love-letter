@@ -17,9 +17,9 @@ body {
   margin: 0;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 20px 14px;
+  padding: 30px 14px;
   font-family: "Inter", sans-serif;
   background: linear-gradient(180deg, #f9f2eb 0%, var(--bg) 100%);
   color: var(--text);
@@ -29,7 +29,8 @@ body {
 
 .page-shell {
   position: relative;
-  width: min(100%, 760px);
+  width: 100%;
+  max-width: 900px;
   min-height: min(86vh, 760px);
   display: flex;
   align-items: center;
@@ -46,17 +47,24 @@ body {
 }
 
 .scene {
+  position: relative;
   width: 100%;
-  position: absolute;
-  inset: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+
+  padding: 24px;
+  overflow-y: auto;
+
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transform: translateY(10px);
   transition: opacity 420ms ease, transform 420ms ease, visibility 0s linear 420ms;
+}
+
+.scene:not(.is-active) {
+  display: none;
 }
 
 .scene.is-active {
@@ -80,7 +88,8 @@ body {
 
 .assessment-card,
 .analysis-card {
-  width: min(100%, 860px);
+  width: 100%;
+  max-width: 860px;
   background: rgba(255, 253, 249, 0.96);
   border: 1px solid rgba(231, 222, 213, 0.9);
   border-radius: 30px;
