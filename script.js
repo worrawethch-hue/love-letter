@@ -221,31 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (resultScene) {
       resultScene.classList.add("is-active");
     }
-
-    window.setTimeout(() => {
-      if (window.html2canvas && resultCard) {
-        resultSaveButton.disabled = true;
-        resultSaveButton.textContent = "Saving...";
-
-        window.html2canvas(resultCard, {
-          backgroundColor: "#fffdf9",
-          scale: 2,
-          useCORS: true
-        })
-          .then((canvas) => {
-            const link = document.createElement("a");
-            link.download = "love-language-result.png";
-            link.href = canvas.toDataURL("image/png");
-            link.click();
-          })
-          .finally(() => {
-            if (resultSaveButton) {
-              resultSaveButton.disabled = false;
-              resultSaveButton.textContent = "Save Image";
-            }
-          });
-      }
-    }, 250);
   };
 
   if (endingPrimaryButton) {
