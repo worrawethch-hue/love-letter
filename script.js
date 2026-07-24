@@ -257,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const showResultScene = (answer) => {
     if (resultAnswer) {
-      const normalizedAnswer = answer === "YES" || answer === "ชอบเหมือนกัน" ? "ชอบเหมือนกัน ❤️" : "ไม่ได้ชอบ";
+      const normalizedAnswer = answer === "YES" || answer === "ได้สิ ชอบเหมือนกัน ❤️" ? "ได้สิ ชอบเหมือนกัน ❤️" : "ขอคิดดูก่อนนะ";
       resultAnswer.textContent = normalizedAnswer;
     }
 
